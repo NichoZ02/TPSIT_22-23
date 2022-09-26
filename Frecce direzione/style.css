@@ -1,0 +1,29 @@
+.sfondo 
+{
+    background-color: lightgrey;
+    margin-right: 300px;
+    margin-left: 300px;
+    margin-top: 50px;
+    text-align: center;
+    border: solid 2px black;
+}
+
+.button 
+{
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    font-size: 50px;
+}
+
+#verticale, #orizzontale
+{
+    background-color: lightgray;
+    border: solid 2px black;
+    margin-right: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 300px;
+    font-size: 50px;
+    text-align: center;
+}
