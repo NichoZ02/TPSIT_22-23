@@ -1,52 +1,69 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang = "it">
   <head>
-    <title>Webserver HTTP</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <title> Webserver HTTP </title>
+
+    <meta charset = "utf-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel = "stylesheet">
+    <link href = "./style.css" rel = "stylesheet">
+
+    <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
-    <div class="container mt-3">
-      <h2>Webserver HTTP</h2>
+    <div class = "container mt-3" id = "sfondo">
+      <h2 id = "center"> Webserver HTTP </h2>
       
-      <form action="https://webserver-http.fabiopinzarrone.repl.co/primi" method="get">
-        <div class="mb-3 mt-3">
-          <button type="submit" class="btn btn-primary">Numeri primi</button>
+      <br>
+
+      <div class = "row" id = "center">
+        <div class = "col-xs-6 col-md-4">
+          <form action = "https://WebServerHTTP.nicholasvalenza.repl.co/primi" method = "get">
+            <div class = "mb-3 mt-3">
+              <button type = "submit" class = "btn btn-dark"> Stampa numeri primi </button>
+            </div>
+          </form>
         </div>
-      </form>
-      
-      <form action="https://webserver-http.fabiopinzarrone.repl.co/dispari" method="get">
-          <div class="mb-3 mt-3">
-            <button type="submit" class="btn btn-primary">Numeri dispari</button>
+
+        <div class = "col-xs-6 col-md-4">
+          <form action = "https://WebServerHTTP.nicholasvalenza.repl.co/dispari" method = "get">
+            <div class = "mb-3 mt-3">
+              <button type = "submit" class = "btn btn-dark"> Stampa numeri dispari </button>
+            </div>
+          </form>
         </div>
-      </form>
-      
-      <form action="https://webserver-http.fabiopinzarrone.repl.co/pari" method="get">
-        <div class="mb-3 mt-3">
-          <button type="submit" class="btn btn-primary">Numeri pari</button>
+
+        <div class = "col-xs-6 col-md-4">
+          <form action = "https://WebServerHTTP.nicholasvalenza.repl.co/pari" method = "get">
+            <div class = "mb-3 mt-3">
+              <button type = "submit" class = "btn btn-dark"> Stampa numeri pari </button>
+            </div>
+          </form>
         </div>
-      </form>
-      
-      <form action="https://webserver-http.fabiopinzarrone.repl.co/saluta" method="get">
-        <div class="mb-3 mt-3">
-          <label for="nick">Chi vuoi salutare:</label>
-          <input type="text" class="form-control" id="nick" placeholder="Enter Nick Name" name="nick">
+      </div>
+
+      <br>
+
+      <form action = "https://WebServerHTTP.nicholasvalenza.repl.co/saluta" method = "get">
+        <div class = "mb-3 mt-3">
+          <label for = "nick"> Chi vuoi salutare: </label>
+          <input type = "text" class = "form-control" id = "nick" placeholder = "Inserisci nome" name = "nick">
         </div>
-        <button type="submit" class="btn btn-primary">Saluta</button>
+        <button type = "submit" class = "btn btn-dark"> Saluta </button>
       </form>
 
-      <form action="https://webserver-http.fabiopinzarrone.repl.co/stampasufile" method="get">
-        <div class="mb-3 mt-3">
-          <label for="string">Cosa vuoi stampare:</label>
-          <input type="text" class="form-control" id="string" placeholder="Enter String" name="string">
-          <label for="nvolte">Quante volte vuoi stampare:</label>
-          <input type="text" class="form-control" id="nvolte" placeholder="Enter Times" name="nvolte">
+      <br>
+
+      <form action = "https://WebServerHTTP.nicholasvalenza.repl.co/stampasufile" method = "get">
+        <div class = "mb-3 mt-3">
+          <label for = "string"> Scrivi frase da stampare: </label>
+          <input type = "text" class = "form-control" id = "string" placeholder = "Inserisci frase" name = "string">
+          <br>
+          <label for = "nvolte"> Quante volte vuoi stamparlo: </label>
+          <input type = "text" class = "form-control" id = "nvolte" placeholder = "Inserisci numero" name = "nvolte">
         </div>
-        <button type="submit" class="btn btn-primary">Stampa</button>
+        <button type = "submit" class = "btn btn-dark"> Stampa </button>
       </form>
-      
     </div>
   </body>
 </html>
