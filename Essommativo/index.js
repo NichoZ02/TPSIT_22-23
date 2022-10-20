@@ -12,7 +12,8 @@ const server = http.createServer((req,res)=>{
   
   if(page == "/somma")
     {
-      res.write(miaUtils.somma(params['num1'], params['num2']));
+      var somma = miaUtils.somma(params['num1'], params['num2'])
+      res.write(somma);
     }
   else if(page == "/paridis")
     {
