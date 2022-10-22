@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang = "it">
+  <head>
+    <title> Webserver HTTP </title>
+
+    <meta charset = "utf-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel = "stylesheet">
+    <link href = "./Style/style.css" rel = "stylesheet">
+
+    <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class = "container mt-3" id = "sfondo">
+      <h2> Esercizio sommativo </h2>
+
+      <br>
+      
+      <div>
+        <form action = "https://EsSommativo.nicholasvalenza.repl.co/somma" method = "get">
+          <div class = "mb-3 mt-3">
+            <label for = "num1"> Inserisci primo numero: </label>
+            <input type = "text" class = "form-control" id = "num1" placeholder = "Inserisci numero" name = "num1">
+            <br>
+            <label for = "num2"> Inserisci secondo numero: </label>
+            <input type = "text" class = "form-control" id = "num2" placeholder = "Inserisci numero" name = "num2">
+          </div>
+          <button type = "submit" class = "btn btn-dark"> Stampa somma </button>
+        </form>
+      </div>
+
+      <br>
+
+      <form action = "https://EsSommativo.nicholasvalenza.repl.co/paridis" method = "get">
+        <button type = "submit" class = "btn btn-dark"> Stampa numero casuale </button>
+      </form>
+
+      <br>
+
+      <form action = "https://EsSommativo.nicholasvalenza.repl.co/stringa" method = "get">
+        <div class = "mb-3 mt-3">
+          <label for = "string"> Inserisci frase da stampare: </label>
+          <input type = "text" class = "form-control" id = "string" placeholder = "Inserisci frase" name = "string">
+        </div>
+        <button type = "submit" class = "btn btn-dark"> Stampa stringa </button>
+      </form>
+    </div>
+  </body>
+</html>
