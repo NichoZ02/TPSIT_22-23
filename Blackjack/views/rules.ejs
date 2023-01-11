@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blackjack - Regole</title>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style/reset.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <%- include('templates/header'); %>
+    <div class="container">
+        <h1>Regole del Blackjack</h1>
+        <div class="main-content">
+            <p>All'inizio di ogni mano, un giocatore piazza una puntata in una casella: il valore viene deciso cliccando
+                sulle chips che indicano il valore corrispondente della scommessa desiderata. Quando i giocatori hanno
+                piazzato le scommesse, tutti ricevono due carte scoperte, dealer incluso: una delle due carte del dealer,
+                tuttavia, è coperta.</p>
+            <p>Quando è il proprio turno è possibile richiedere carte per aggiungerle alla propria mano e aumentarne il
+                valore. Successivamente il dealer dovrà girare la carta coperta fino a quando non avrà un risultato di 17 o
+                superiore. La migliore mano del gioco è il blackjack, ed è composta da un asso e da qualsiasi carta di
+                valore pari a dieci. Il blackjack deve risultare dalle prime due carte per essere valido e non può essere
+                battuto. Può tuttavia finire in parità, se anche la mano del dealer è un blackjack.</p>
+            <p>Dieci, jack, donna e re hanno tutti un valore pari a dieci. Gli assi possono avere due valori differenti,
+                pari a uno o undici (a scelta).</p>
+            <p>Le azioni principali del blackjack sono:</p>
+            <ul>
+                <li>Hit (carta), quando si richiedono carte aggiuntive per migliorare la mano (solo fino a quando il valore
+                    non è maggiore o uguale a 21).</li>
+                <li>
+                    Stay (stai), quando il valore totale della mano è minore o uguale a 21, si può scegliere se non fare
+                    niente e non rischiare che si sballi.
+                </li>
+            </ul>
+            <p>In alcune circostanze ci sono anche delle opzioni aggiuntive che dipendono dalle due carte iniziali che
+                vengono distribuite:</p>
+            <ul>
+                <li>Split (dividi), divide la mano in due e si gioca due volte.</li>
+                <li>Double (raddoppio), raddoppia la puntata.</li>
+            </ul>
+        </div>
+        <form method="get" action="/">
+            <button class="button w-100" type="submit">Torna alla pagina principale</button>
+        </form>
+    </div>
+</body>
+</html>
