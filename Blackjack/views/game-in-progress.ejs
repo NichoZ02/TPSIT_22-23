@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blackjack - Partita</title>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="style/reset.css">
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <script src="scripts/sweetalert.js"></script>
+</head>
+<body>
+  <%- include('templates/header'); %>
+  <div class="container">
+    <h1>Blackjack - Partita</h1>
+    <div class="main-content">
+      <p><b>Saldo</b>: <%= gameState.playerMoney %></p>
+      <p><b>Scommessa</b>: <%= gameState.bet %></p>
+      <% if (gameState.winner) { %>
+        <!-- Se il giocatore ha vinto la mano, mostra il messaggio e il pulsante per continuare -->
+        <% if (gameState.winner === 'player' && gameState.playerMoney > 0) { %>
+          <p><b>Hai vinto la mano!</b></p>
+          <form method="post" action="/game-in-progress?gameId=<%= gameId %>">
+            <input type="hidden" name="gameId" value="<%= gameId %>">
+            <input type="hidden" name="resetWinner" value="1">
+            <p>Le tue carte:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.playerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
+            <p>Le carte del dealer:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.dealerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
+            <button class="button w-100" type="submit">Continua</button>
+          </form>
+        <!-- Se il giocatore ha perso la mano, mostra il messaggio e il pulsante per continuare -->
+        <% } else if (gameState.winner === 'dealer' && gameState.playerMoney > 0) { %>
+          <p><b>Il dealer vince la mano.</b></p>
+          <form method="post" action="/game-in-progress?gameId=<%= gameId %>">
+            <input type="hidden" name="gameId" value="<%= gameId %>">
+            <input type="hidden" name="resetWinner" value="1">
+            <p>Le tue carte:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.playerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
+            <p>Le carte del dealer:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.dealerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
+            <button class="button w-100" type="submit">Continua</button>
+          </form>
+        <!-- Se il giocatore ha pareggiato, mostra il messaggio e il pulsante per continuare -->
+        <% } else if (gameState.winner === 'tie' && gameState.playerMoney > 0) { %>
+          <p><b>Pareggio.</b></p>
+          <form method="post" action="/game-in-progress?gameId=<%= gameId %>">
+            <input type="hidden" name="gameId" value="<%= gameId %>">
+            <input type="hidden" name="resetWinner" value="1">
+            <p>Le tue carte:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.playerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
+            <p>Le carte del dealer:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.dealerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
+            <button class="button w-100" type="submit">Continua</button>
+          </form>
+        <!-- Se il giocatore ha perso tutti i soldi, mostra il game over e il pulsante per tornare alla pagina principale -->
+        <% } else { %>
+          <form method="get" action="/">
+            <script>
+              // Mostra un messaggio di errore con SweetAlert
+              Swal.fire({
+                icon: 'error',
+                title: 'Hai perso!',
+                text: 'Hai finito i soldi. Partita terminata.',
+                buttonsStyling: false,
+                customClass: {
+                  confirmButton: 'button',
+                },
+              });
+            </script>
+            <p>Le tue carte:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.playerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
+            <p>Le carte del dealer:</p>
+            <div class="cards-row">
+              <% for (const card of gameState.dealerCards) { %>
+                <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+              <% } %>
+            </div>
+            <button class="button w-100" type="submit">Torna alla pagina principale</button>
+          </form>
+        <% } %>
+      <!-- Se non c'è un vincitore, continua la partita -->
+      <% } else { %>
+        <!-- Se è il turno del giocatore, mostra le carte del giocatore e i pulsanti delle azioni -->
+        <% if (gameState.currentTurn === 'player') { %>
+          <h2>Il tuo turno</h2>
+          <p>Le tue carte:</p>
+          <div class="cards-row">
+            <% for (const card of gameState.playerCards) { %>
+              <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+            <% } %>
+          </div>
+          <p><b>Punti totali</b>: <%= getScore(gameState.playerCards) %></p>
+          <form method="post" action="/player-action">
+            <input type="hidden" name="gameId" value="<%= gameId %>">
+            <div class="button-row">
+              <button class="button" type="submit" name="action" value="hit">Hit</button>
+              <% if (gameState.playerCards.length >= 2) { %>
+              	<button class="button" type="submit" name="action" value="stand">Stay</button>
+							<% } %>
+              <% if (gameState.playerCards.length === 2 && gameState.playerMoney >= gameState.bet) { %>
+                <button class="button" type="submit" name="action" value="double">Double</button>
+              <% } %>
+            </div>
+          </form>
+        <!-- Se è il turno del dealer, mostra le carte del dealer e il pulsante per continuare -->
+        <% } else { %>
+          <h2>Turno del dealer</h2>
+          <p>Carte del dealer:</p>
+          <div class="cards-row">
+            <% for (const card of gameState.dealerCards) { %>
+              <img src="images/cards/<%= card.value %>_di_<%= card.suit %>.png" alt="<%= card.value %> di <%= card.suit %>">
+            <% } %>
+          </div>
+          <p><b>Punti totali</b>: <%= getScore(gameState.dealerCards) %></p>
+          <!-- Se il dealer ha sballato, mostra il messaggio e il pulsante per continuare -->
+          <% if (isBusted(gameState.dealerCards)) { %>
+            <p>Il dealer ha sballato!</p>
+          <% } else { %>
+            <form method="post" action="/player-action">
+              <input type="hidden" name="gameId" value="<%= gameId %>">
+              <div class="button-row">
+                <button class="button" type="submit" name="action" value="hit">Hit</button>
+                <button class="button" type="submit" name="action" value="stand">Stay</button>
+                <button class="button" type="submit" name="action" value="double">Double</button> 
+              </div>
+            </form>
+          <% } %>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
+
