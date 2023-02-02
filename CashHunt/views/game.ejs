@@ -1,0 +1,63 @@
+<%- include('header'); %>
+  <body>
+    <div>
+      <h1 class="title"> <%= topicHead %> </h1>
+  
+      <form action = "/" method = "get">
+        <button class = "button-3" type = "submit">
+          Torna alla home
+        </button>
+      </form>
+      
+      <div class = 'text'> Saldo: <%= saldo %> euro </div>
+  
+      <form action = '/game' method = 'post'>
+        <label class = 'text'> Ricarica budget: </label>
+        <input type = "number" name = "add" placeholder = "Quanto vuoi ricaricare..." step = "0.01" min = "10" max = "<%= lim%>" style = "width: 195px;" required><br><br>
+        <input class = "button-2" type = "submit" name = "ricarica" value = "Ricarica"><br><br>
+      </form>
+  
+      <div class='text'> <%= message %> </div>
+      
+      <form action = "/risultati" method = "post">
+        
+        <label class = 'text'> Puntata: </label>
+        <input type = "number" name = "puntata" placeholder = "Inserisci la puntata..." step = "0.01"  min = "0.10" max = "<%= saldo %>" style = "width: 170px;" required><br><br>
+        
+    </div>
+    
+    <div>
+        <table border = "1" align = "center" class = "greenTable">
+          <% var rig = 0 %> <% var col = 0 %> <% images.forEach(function(arr){ %> <%
+          col = 0 %>
+          <tr>
+            <% arr.forEach(function(img){ %>
+            <td>
+              <button type = "submit" name = "casella" value = "<%= rig %>,<%= col %>" style = "background-color: white;" >
+                <img src = "<%= img %>" width = "100%" height = "100%" />
+              </button>
+            </td>
+            <% col++ %> <% }) %>
+          </tr>
+          <% rig++ %> <% }) %>
+        </table>
+      </form>
+    </div>
+
+    <script>
+      function regole_gioco(testo) 
+      {
+        var regole_class = document.getElementById(testo).classList;
+
+        if (regole_class == "hide") 
+        {
+          document.getElementById(testo).classList.remove("hide");
+
+        } else {
+          document.getElementById(testo).classList = "hide";
+
+        }
+      }
+    </script>
+  </body>
+<%- include('footer'); %>

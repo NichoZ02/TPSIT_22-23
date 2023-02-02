@@ -1,0 +1,89 @@
+<%- include('header'); %>
+  <body>
+    <div>
+      <h1 class = "title"> <%= topicHead %> </h1>
+  
+      <div class = 'text'> Saldo: <%= saldo %> euro </div>
+  
+      <div class = 'text'> Puntata: <%= puntata %> </div>
+  
+      <div class = 'text'> Vincita: <%= vincita %> euro, hai estratto un <%= moltip %> x </div>
+  
+      <form action = "/game" method = "post">
+        <input class = "button-3" type = "submit" value = "Gioca un altra partita"> <br> <br>
+      </form>
+    </div>
+    
+    <div>
+      <table border = "1" align = "center" class = "greenTable">
+        <% var rig = 0 %>
+        <% var col = 0 %>
+        <% numeri.forEach(function(arr){ %>
+          <%col = 0 %>
+          <tr>
+            <% arr.forEach(function(num){ %>
+              <% if( x == rig && y == col )
+                {
+                  %> <td style="background-color:teal; color:white;" class="text"> <%= num %>x</td> <%
+                  
+                } 
+                else
+                {
+                  switch (num) 
+                  {
+                    case 0:
+                        %> <td class="text" style="color: darkslategrey;"><%= num %>x</td> <%
+                      break;
+                    case 1:
+                        %> <td class="text"><%= num %>x</td> <%
+                      break;
+                    case 2:
+                        %> <td class="text" style="color:magenta;"><%= num %>x</td> <%
+                      break;
+                    
+                    case 5:
+                        %> <td class="text" style="color:green;"><%= num %>x</td> <%
+                      break;
+                    
+                    case 10:
+                        %> <td class="text" style="color:darkorange;"><%= num %>x</td> <%
+                      break;
+                    
+                    case 20:
+                        %> <td class="text" style="color:red;"><%= num %>x</td> <%
+                      break;
+                    
+                    case 50:
+                        %> <td class="text" style="color:rebeccapurple;"><%= num %>x</td> <%
+                      break;
+                    default:
+                      break;
+                  }
+                }%>  
+              <% col++ %>
+            <% }) %>
+          </tr>
+          <% rig++ %>
+        <% }) %>
+      </table>
+    </div>
+    
+    <script>
+      function regole_gioco() 
+      {
+        var regole_class = document.getElementById("regole").classList;
+
+        if (regole_class == "hide") 
+        {
+          document.getElementById("regole").classList.remove("hide");
+
+        } 
+        else 
+        {
+          document.getElementById("regole").classList = "hide";
+
+        }
+      }
+    </script>
+  </body>
+<%- include('footer'); %>

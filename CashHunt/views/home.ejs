@@ -1,0 +1,57 @@
+<%- include('header'); %>
+  <body>
+    <div>
+      <h1 class="title"> <%= topicHead %> </h1>
+
+      <form action = "/game" method = "post">
+        <button class = "button-3" type = "submit">
+          Gioca
+        </button>
+      </form>
+        
+      <div>
+        <button class = "button-3" role = "button" onclick = "regole_gioco('regole')">
+          Regole del gioco
+        </button>
+      </div>
+  
+      <div id = "regole" class = "hide">
+        Ti troverai davanti ad una tabella che sarà piena di icone e simboli diversi.<br />
+        Scegli una casella, cliccala e scopri se hai vinto!<br />
+        Se estrai un '0x' perdi la puntata, ma qualsiasi altro risultato corrisponderà ad una vincità!<br />
+        Più alto il moltiplicatore, maggiore la vincita. Buon divertimento!<br />
+      </div>
+
+      <div>
+        <button class = "button-3" role = "button" onclick = "regole_gioco('crediti')">
+          Crediti
+        </button>
+      </div>
+
+      <div id = "crediti" class = "hide">
+        Gioco creato da Andrea Davoli e Fabio Pinzarrone.<br />
+        Tecnologie utilizzate:<br />
+          <a href = "https://nodejs.org/en/"> Node.js </a><br />
+          <a href = "https://expressjs.com/"> Express </a><br />
+          <a href = "https://ejs.co/"> EJS </a><br />
+      </div>
+    </div>
+    <script>
+      function regole_gioco(testo) 
+      {
+        var regole_class = document.getElementById(testo).classList;
+
+        if (regole_class == "hide") 
+        {
+          document.getElementById(testo).classList.remove("hide");
+
+        } 
+        else 
+        {
+          document.getElementById(testo).classList = "hide";
+          
+        }
+      }
+    </script>
+  </body>
+<%- include('footer'); %>
