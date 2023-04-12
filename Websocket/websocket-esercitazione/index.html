@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websocket esercitazione</title>
+</head>
+<body>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border: 1px solid black;
+            margin: 10px;
+        }
+    </style>
+    <div class="container">
+        <h1 id="coloreDominante"></h1>
+        <div class="row">
+            <div id="1" class="box"></div>
+            <div id="2" class="box"></div>
+            <div id="3" class="box"></div>
+        </div>
+        <div class="row">
+            <div id="4" class="box"></div>
+            <div id="5" class="box"></div>
+            <div id="6" class="box"></div>
+        </div>
+        <div class="row">
+            <div id="7" class="box"></div>
+            <div id="8" class="box"></div>
+            <div id="9" class="box"></div>
+        </div>
+    </div>
+    <script>
+        let webSocket = new WebSocket(location.origin.replace(/^http/, 'ws')); // Creazione del websocket.
+        var colore = ''; // Colore del client.
+        // Variabili colore dominante.
+        var coloreDominante = '';
+        var listaColori = ['verde', 'rosso', 'blu'];
+        var coloriConteggio = [0, 0, 0];
+        // Ricevi il messaggio dal server.
+        webSocket.onmessage = (event) => {
+            // Ottieni dati.
+            var data = JSON.parse(event.data);
+            quadrati = data.quadrati;
+            coloriConteggio = data.coloriConteggio;
+            if(colore == '') {
+                colore = data.colore;
+            }
+            console.log(data);
+            // Aggiorna i quadrati.
+            for (var i = 0; i < quadrati.length; i++) {
+                var quadrato = document.getElementById(quadrati[i].id);
+                // Cambia il colore del quadrato.
+                quadrato.style.backgroundColor = quadrati[i].colore;
+            }
+            // Mostra il colore dominante.
+            if (data.coloreDominante != '') {
+                document.getElementById('coloreDominante').innerHTML = 'Colore dominante: ' + data.coloreDominante;
+            } else if (data.coloreDominante == '') {
+                document.getElementById('coloreDominante').innerHTML = '';
+            }
+        };
+        // Gestisci click dei box.
+        document.querySelectorAll('.box').forEach((box) => {
+            box.addEventListener('click', () => {
+                console.log('Click su ' + box.id);
+                // Se un quadrato ha già un colore, rendilo di nuovo bianco.
+                if (box.style.backgroundColor != 'white') {
+                    // Sottrai il colore dal conteggio.
+                    switch(box.style.backgroundColor) {
+                        case 'green':
+                            coloriConteggio['verde']--;
+                            break;
+                        case 'red':
+                            coloriConteggio['rosso']--;
+                            break;
+                        case 'blue':
+                            coloriConteggio['blu']--;
+                            break;
+                    }
+                    webSocket.send(JSON.stringify({
+                        id: box.id,
+                        colore: 'white',
+                        coloreDominante: coloreDominante,
+                        coloriConteggio: coloriConteggio
+                    }));
+                    return;
+                }
+                // Conteggia i colori.
+                switch(colore) {
+                    case 'green':
+                        coloriConteggio['verde']++;
+                        break;
+                    case 'red':
+                        coloriConteggio['rosso']++;
+                        break;
+                    case 'blue':
+                        coloriConteggio['blu']++;
+                        break;
+                }
+                console.log(coloriConteggio);
+                // Invia il nuovo colore al server.
+                webSocket.send(JSON.stringify({
+                    id: box.id,
+                    colore: colore,
+                    coloreDominante: coloreDominante,
+                    coloriConteggio: coloriConteggio
+                }));
+            });
+        });
+    </script>
+</body>
+</html>

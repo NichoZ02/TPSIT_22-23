@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quadrati bianchi</title>
+  </head>
+  <body>
+    <style>
+      .square {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+      }
+    </style>
+    <div id="squares-container">
+      <div id="square1" class="square"></div>
+      <div id="square2" class="square"></div>
+      <div id="square3" class="square"></div>
+      <div id="square4" class="square"></div>
+      <div id="square5" class="square"></div>
+    </div>
+    <script>
+      const squaresContainer = document.getElementById("squares-container"); // Salva il container dei quadrati.
+      let webSocket = new WebSocket(location.origin.replace(/^http/, "ws")); // Creazione del websocket.
+
+      webSocket.onmessage = function (event) {
+        // Se il server ha risposto con "Too many clients!", mostra errore.
+        if(event.data === "Too many clients!") {
+          alert("Troppi client connessi! Non puoi fare niente.");
+          return;
+        }
+        // Altrimenti esegui il programma come previsto.
+        const squares = JSON.parse(event.data);
+        // Aggiorna il colore dei quadrati.
+        squares.forEach(function (square) {
+          const squareElem = document.getElementById("square" + square.id);
+          squareElem.style.backgroundColor = square.color;
+        });
+      };
+
+      // Gestisci aggiornamento quadrato.
+      function updateSquare(id, color) {
+        const newSquare = JSON.stringify({ id: id, color: color });
+        webSocket.send(newSquare);
+      }
+
+      // Gestisci click quadrato.
+      const square1 = document.getElementById("square1");
+      square1.addEventListener("click", function () {
+        updateSquare(1, "red");
+      });
+
+      const square2 = document.getElementById("square2");
+      square2.addEventListener("click", function () {
+        updateSquare(2, "green");
+      });
+
+      const square3 = document.getElementById("square3");
+      square3.addEventListener("click", function () {
+        updateSquare(3, "blue");
+      });
+
+      const square4 = document.getElementById("square4");
+      square4.addEventListener("click", function () {
+        updateSquare(4, "yellow");
+      });
+
+      const square5 = document.getElementById("square5");
+      square5.addEventListener("click", function () {
+        updateSquare(5, "purple");
+      });
+    </script>
+  </body>
+</html>
